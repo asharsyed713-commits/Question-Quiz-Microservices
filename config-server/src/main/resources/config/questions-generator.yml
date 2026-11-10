@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: questions-generator
+  mongodb:
+    uri: mongodb://localhost:27017/questionsdb
+server:
+  port: 9097
+
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka/

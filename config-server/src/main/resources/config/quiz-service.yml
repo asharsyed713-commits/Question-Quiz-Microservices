@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: quiz-service
+  mongodb:
+    uri: mongodb://localhost:27017/quizdb
+server:
+  port: 9092
+
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka/

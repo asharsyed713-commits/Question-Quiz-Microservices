@@ -1,0 +1,72 @@
+
+spring:
+  application:
+    name: quiz-service
+
+  #Rabbit Mq configurations
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/quizdb
+
+  config:
+    import: "configserver:http://localhost:9094"
+
+  profiles:
+    active: qa
+
+
+
+#Streaming configuration
+  cloud:
+    function:
+      definition: acknowledgeInformation
+
+    stream:
+      bindings:
+        quizCreatedBinding-out-0:
+            destination: quiz-created
+
+
+        acknowledgeInformation-in-0:
+            destination: acknowledge-quiz
+            group: ${spring.application.name}
+            content-type: application/json
+
+server:
+  port: 9092
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+    refresh:
+      enable: false
+
+
+
+
+
+#Resilience4j configuration
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 10
+        permittedNumberOfCallsInHalfOpenState: 2
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        maxWaitDurationInHalfOpenState: 5000
+
+    instances:
+      quizCB:
+        baseConfig: default
+
+

@@ -1,0 +1,31 @@
+package com.example.quiz.collections;
+
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+@Document(collection = "quizzes")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Quiz {
+    @Id
+    private String id;
+
+    @Field("quiz_title")
+    private String title;
+    private String description;
+    private Integer maxMarks;
+    private Integer timeLimit;
+    private String createdBy;
+    private Integer noOfQuestions;
+    private String imageUrl;
+    private boolean live;
+    private Integer passingMarks;
+    private Long categoryId;
+
+
+}

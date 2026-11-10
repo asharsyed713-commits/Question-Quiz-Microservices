@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: config-server
+    #Config server configuration for class path
+# cloud:
+#   config:
+#      server:
+#        native:
+#          search-locations: classpath:/config
+#
+#  profiles:
+#    active: native
+
+#Config server configuration for github
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/asharsyed713-commits/micro-config
+          default-label: main
+          clone-on-start: true
+server:
+  port: 9094
+
+#Eureka configuration
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#Rabbit Mq configurations
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+
+#Encrypt key configuration
+encrypt:
+  key: "qwertyuiopsdfghjklmnbvcxzasdfghjkpoiuytrsdfghj"
+
